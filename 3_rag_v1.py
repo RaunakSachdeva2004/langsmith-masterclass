@@ -37,7 +37,9 @@ prompt = ChatPromptTemplate.from_messages([
 
 # 5) Chain
 llm = ChatGroq(model='openai/gpt-oss-120b', temperature=0)
-def format_docs(docs): return "\n\n".join(d.page_content for d in docs)
+
+def format_docs(docs):
+    return "\n\n".join(d.page_content for d in docs)
 
 parallel = RunnableParallel({
     "context": retriever | RunnableLambda(format_docs),
