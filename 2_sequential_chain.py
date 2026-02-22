@@ -22,6 +22,12 @@ parser = StrOutputParser()
 
 chain = prompt1 | model | parser | prompt2 | model | parser
 
-result = chain.invoke({'topic': 'Unemployment in India'})
+config = {
+    'run_name': 'Chain',
+    'tags':['llm app', 'report generation', 'summarization'],
+    'metadata':{'model': 'gpt-oss-120b', 'model_temp': 0.5, 'parser': 'stroutputparser' }
+    
+    }
+result = chain.invoke({'topic': 'Unemployment in India'}, config = config)
 
 print(result)
