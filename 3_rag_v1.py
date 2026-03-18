@@ -14,6 +14,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 load_dotenv()  # expects OPENAI_API_KEY in .env
 
+os.environ['LANGCHAIN_PROJECT'] = 'RAG CHATBOT'
 PDF_PATH = "islr.pdf"  # <-- change to your PDF filename
 
 # 1) Load PDF
@@ -21,7 +22,10 @@ loader = PyPDFLoader(PDF_PATH)
 docs = loader.load()  # one Document per page
 
 # 2) Chunk
-splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
+splitter = RecursiveCharacterTextSplitter(chunk_size=512,
+    chunk_overlap=50,
+    length_function=len,
+    is_separator_regex=False)
 splits = splitter.split_documents(docs)
 
 # 3) Embed + index
@@ -53,3 +57,4 @@ print("PDF RAG ready. Ask a question (or Ctrl+C to exit).")
 q = input("\nQ: ")
 ans = chain.invoke(q.strip())
 print("\nA:", ans)
+ 
