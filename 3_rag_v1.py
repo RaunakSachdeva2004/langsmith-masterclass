@@ -12,7 +12,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 
-load_dotenv()  # expects OPENAI_API_KEY in .env
+load_dotenv()  # expects GROQ_API_KEY in .env
 
 os.environ['LANGCHAIN_PROJECT'] = 'RAG CHATBOT'
 PDF_PATH = "islr.pdf"  # <-- change to your PDF filename
