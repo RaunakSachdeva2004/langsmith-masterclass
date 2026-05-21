@@ -4,14 +4,13 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 import os
 
+load_dotenv()
 
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 
+os.environ['LANGCHAIN_PROJECT'] = 'Sequential LLM App'
 
 
-os.environ['LANGCHAIN_PROJECT'] = 'Sequential App'
-
-load_dotenv()
 
 prompt1 = PromptTemplate(
     template='Generate a detailed report on {topic}',

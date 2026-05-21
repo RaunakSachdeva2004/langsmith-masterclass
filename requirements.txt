@@ -34,7 +34,7 @@ jsonschema-specifications
 langchain
 langchain-community
 langchain-core
-langchain-openai
+langchain-groq
 langchain-text-splitters
 langgraph
 langgraph-checkpoint
