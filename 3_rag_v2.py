@@ -24,7 +24,7 @@ load_dotenv()
 PDF_PATH = "islr.pdf"  # change to your file
 
 # ---------- traced setup steps ----------
-@traceable(name="load_pdf")
+@traceable(name="load_pdf", tags = ['pdf', 'loader'], metadata = {'loader': 'PyPDFLoader'})
 def load_pdf(path: str):
     loader = PyPDFLoader(path)
     return loader.load()  # list[Document]
