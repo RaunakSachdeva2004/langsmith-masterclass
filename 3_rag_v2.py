@@ -76,10 +76,10 @@ chain = parallel | prompt | llm | StrOutputParser()
 print("PDF RAG ready. Ask a question (or Ctrl+C to exit).")
 q = input("\nQ: ").strip()
 
-# Give the visible run name + tags/metadata so it’s easy to find:
-config = {
-    "run_name": "pdf_rag_query"
-}
+# # Give the visible run name + tags/metadata so it’s easy to find:
+# config = {
+#     "run_name": "pdf_rag_query"
+# }
 
-ans = chain.invoke(q, config=config)
+ans = chain.invoke(q)
 print("\nA:", ans)
