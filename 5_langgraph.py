@@ -1,4 +1,5 @@
 # pip install -U langgraph langchain-openai pydantic python-dotenv langsmith
+import os
 
 import operator
 from typing import TypedDict, Annotated, List
@@ -12,6 +13,9 @@ from langgraph.graph import StateGraph, START, END
 
 # ---------- Setup ----------
 load_dotenv()
+
+
+os.environ["LANGCHAIN_PROJECT"] = "Langgraph Demo"
 model = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 
 # ---------- Structured schema & model ----------
@@ -61,6 +65,7 @@ def evaluate_language(state: UPSCState):
     out = structured_model.invoke(prompt)
     return {"language_feedback": out.feedback, "individual_scores": [out.score]}
 
+
 @traceable(name="evaluate_analysis_fn", tags=["dimension:analysis"], metadata={"dimension": "analysis"})
 def evaluate_analysis(state: UPSCState):
     prompt = (
@@ -70,6 +75,7 @@ def evaluate_analysis(state: UPSCState):
     out = structured_model.invoke(prompt)
     return {"analysis_feedback": out.feedback, "individual_scores": [out.score]}
 
+
 @traceable(name="evaluate_thought_fn", tags=["dimension:clarity"], metadata={"dimension": "clarity_of_thought"})
 def evaluate_thought(state: UPSCState):
     prompt = (
@@ -78,6 +84,7 @@ def evaluate_thought(state: UPSCState):
     )
     out = structured_model.invoke(prompt)
     return {"clarity_feedback": out.feedback, "individual_scores": [out.score]}
+
 
 @traceable(name="final_evaluation_fn", tags=["aggregate"])
 def final_evaluation(state: UPSCState):
@@ -91,6 +98,7 @@ def final_evaluation(state: UPSCState):
     scores = state.get("individual_scores", []) or []
     avg = (sum(scores) / len(scores)) if scores else 0.0
     return {"overall_feedback": overall, "avg_score": avg}
+
 
 # ---------- Build graph ----------
 graph = StateGraph(UPSCState)
